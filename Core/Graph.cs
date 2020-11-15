@@ -57,6 +57,60 @@ namespace Core
             
             PrintGraphStats();
         }
+        
+        public void SetIncidenceMatrixWeights(List<List<int>> matrix)
+        {
+            var height = matrix.Count;
+            var width = matrix[0].Count;
+            Vertices = new List<Vertex>();
+            Edges = new List<Edge>();
+
+            
+            for (var i = 0; i < height; i++)
+            {
+                if (matrix[i].Count != width)
+                {
+                    Console.WriteLine("Error: wrong num count on row " + i);    //rewrite this in a separate function
+                    return;
+                }
+            }
+            
+            for (var i = 0; i < height - 1; i++)
+            {
+                Vertices.Add(new Vertex(i));    //rewrite this as well
+            }
+            
+            for (var j = 0; j < width; j++)
+            {
+                Edges.Add(new Edge(j));          //you get it
+            }
+
+            for (var i = 0; i < height - 1; i++)
+            {
+                for (var j = 0; j < width; j++)
+                {
+                    if (matrix[i][j] == 1)
+                    {
+                        Edges[j].ConnectedVertices.Add(Vertices[i]);    //just setting the edges for now
+                        Vertices[i].AdjacentEdges.Add(Edges[j]);
+                    }
+                }
+            }
+            
+            for (var j = 0; j < width; j++)
+            {
+                Edges[j].Weight = matrix[height - 1][j];
+            }
+
+            foreach (var edge in Edges)
+            {
+                edge.ConnectedVertices[0].AdjacentVertices.Add(edge.ConnectedVertices[1]);
+                edge.ConnectedVertices[1].AdjacentVertices.Add(edge.ConnectedVertices[0]);    //probably rewrite this as well
+            }
+            
+            PrintGraphStats();
+        }
+
 
         public void PrintIncidenceMatrix()
         {
@@ -133,7 +187,7 @@ namespace Core
             
             for (int i = 0; i < Edges.Count; i++)
             {
-                Edges[i].id = i;
+                Edges[i].Id = i;
             }
 
             PrintGraphStats();
@@ -233,7 +287,7 @@ namespace Core
 
             for (int i = 0; i < Edges.Count; i++)
             {
-                Edges[i].id = i;
+                Edges[i].Id = i;
             }
             
             PrintGraphStats();
@@ -313,7 +367,7 @@ namespace Core
             Console.Write("Vertex IDs: ");
             foreach (var vertex in Vertices)
             {
-                Console.Write(vertex.id + " ");
+                Console.Write(vertex.Id + " ");
             }
             Console.WriteLine();
 
@@ -324,11 +378,18 @@ namespace Core
                 Console.Write(vertex.GetVertexDegree() + " ");
             }
             Console.WriteLine();
+            
+            Console.Write("Distance: ");
+            foreach (var vertex in Vertices)
+            {
+                Console.Write(vertex.Distance + " ");
+            }
+            Console.WriteLine();
 
             Console.Write("Edges: ");
             foreach (var edge in Edges)
             {
-                Console.Write("(" + edge.ConnectedVertices[0].id + ", " + edge.ConnectedVertices[1].id + ") ");
+                Console.Write("(" + edge.ConnectedVertices[0].Id + ", " + edge.ConnectedVertices[1].Id + ") ");
             }
             Console.WriteLine();
 
@@ -336,8 +397,16 @@ namespace Core
             Console.Write("Edge IDs: ");
             foreach (var edge in Edges)
             {
-                Console.Write(edge.id + " ");
+                Console.Write(edge.Id + " ");
             }
+            Console.WriteLine();
+            
+            Console.Write("Edge Weight: ");
+            foreach (var edge in Edges)
+            {
+                Console.Write(edge.Weight + " ");
+            }
+            Console.WriteLine();
             Console.WriteLine();
         }
 

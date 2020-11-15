@@ -4,12 +4,13 @@ namespace Core
 {
     public class Edge
     {
-        public int id;
+        public int Id;
         public List<Vertex> ConnectedVertices = new List<Vertex>();
+        public int Weight = 0;
 
         public Edge(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
         
         public Edge(Vertex firstVertex, Vertex secondVertex)

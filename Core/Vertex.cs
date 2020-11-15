@@ -5,9 +5,10 @@ namespace Core
 {
     public class Vertex
     {
-        public int id;
+        public int Id;
         public List<Vertex> AdjacentVertices = new List<Vertex>();
         public List<Edge> AdjacentEdges = new List<Edge>();
+        public int Distance = 0;
 
         public int GetVertexDegree()
         {
@@ -16,7 +17,7 @@ namespace Core
 
         public Vertex(int id)
         {
-            this.id = id;
+            this.Id = id;
         }
     }
 }
