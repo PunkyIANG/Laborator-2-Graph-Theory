@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Core;
 
 namespace Exercitiul_1_c
 {
@@ -8,17 +7,24 @@ namespace Exercitiul_1_c
     {
         static void Main(string[] args)
         {
-            var graph = new Graph();
-            graph.SetIncidenceMatrixWeights(graph.ParseMatrixFile(@"..\..\..\..\Core\incidenceWeighted.txt"));
+            var graph = new DirectedWeightedGraph();
+            graph.SetIncidenceMatrixWeights(graph.ParseMatrixFile(@"..\..\..\..\Exercitiul_1_c\incidenceWeighted.txt"));
             BellmanFord(graph, graph.Vertices.FirstOrDefault());
             graph.PrintGraphStats();
         }
 
-        static void BellmanFord(Graph graph, Vertex source)
+        static void BellmanFord(DirectedWeightedGraph graph, Vertex source)
         {
+            int totalDistance = 0;
+
+            foreach (var edge in graph.Edges)
+            {
+                totalDistance += Math.Abs(edge.Weight);
+            }
+            
             foreach (var vertex in graph.Vertices)
             {
-                vertex.Distance = Int32.MaxValue;
+                vertex.Distance = Int32.MaxValue - totalDistance;
             }
             source.Distance = 0;
 
@@ -38,28 +44,22 @@ namespace Exercitiul_1_c
 
         static void RelaxEdgeVertices(Edge edge)
         {
-            var u = edge.ConnectedVertices[0];
-            var v = edge.ConnectedVertices[1];
+            var u = edge.Source;
+            var v = edge.Destination;
 
             if (u.Distance + edge.Weight < v.Distance)
             {
-                Console.WriteLine($"{u.Distance} + {edge.Weight} < {v.Distance}");
+                Console.WriteLine($"{u.Distance} + {edge.Weight} < {v.Distance}");    //debug
                 v.Distance = u.Distance + edge.Weight;
-            }
-            else if (v.Distance + edge.Weight < u.Distance)
-            {
-                Console.WriteLine($"{v.Distance} + {edge.Weight} < {u.Distance}");
-                u.Distance = v.Distance + edge.Weight;
             }
         }
 
         static void CheckNegativeCycles(Edge edge)
         {
-            var u = edge.ConnectedVertices[0];
-            var v = edge.ConnectedVertices[1];
+            var u = edge.Source;
+            var v = edge.Destination;
 
-            if (u.Distance + edge.Weight < v.Distance ||
-                v.Distance + edge.Weight < u.Distance)
+            if (u.Distance + edge.Weight < v.Distance)
             {
                 Console.WriteLine("Graful contine cicluri de lungime negativa");
             }

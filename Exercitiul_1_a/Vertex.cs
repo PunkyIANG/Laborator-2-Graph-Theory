@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core
+namespace Exercitiul_1_a
 {
     public class Vertex
     {
         public int Id;
         public List<Vertex> AdjacentVertices = new List<Vertex>();
         public List<Edge> AdjacentEdges = new List<Edge>();
-        public int Distance = 0;
+        // public int Distance = 0;
 
         public int GetVertexDegree()
         {

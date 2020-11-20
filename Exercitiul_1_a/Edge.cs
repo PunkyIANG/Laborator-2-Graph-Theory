@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Core
+namespace Exercitiul_1_a
 {
     public class Edge
     {
@@ -13,10 +13,10 @@ namespace Core
             this.Id = id;
         }
         
-        public Edge(Vertex firstVertex, Vertex secondVertex)
+        public Edge(Vertex source, Vertex destination)
         {
-            ConnectedVertices.Add(firstVertex);
-            ConnectedVertices.Add(secondVertex);
+            ConnectedVertices.Add(source);
+            ConnectedVertices.Add(destination);
         }
     }
 }
