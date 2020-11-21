@@ -48,7 +48,10 @@ namespace Exercitiul_1_b
         {
             if (edgeColouringId == colourCombo.Count())
             {
-                colouredGraphs.Add(colourCombo);
+                if (IsUnique(colouredGraphs, colourCombo))
+                {
+                    colouredGraphs.Add(colourCombo);
+                }
             }
             else
             {
@@ -58,12 +61,6 @@ namespace Exercitiul_1_b
                     {
                         var newCombo = new List<int>(colourCombo);
                         newCombo[edgeColouringId] = colour;
-                        
-                        // foreach (var i in newCombo)
-                        // {
-                        //     Console.Write($"{i} ");
-                        // }
-                        // Console.WriteLine();
                         
                         GetColourCombos(initGraph, newCombo, edgeColouringId + 1);
                     }
@@ -97,48 +94,60 @@ namespace Exercitiul_1_b
                 }
                 Console.WriteLine();
             }
-
         }
 
-        /*
-        static void StartColourCombos()
+        static bool IsUnique(List<List<int>> colouredGraphs, List<int> colourCombo)
         {
-            allCombos = new List<int[]>();
-            var start = new int[edgeCount];
-            GetAllColourCombos(start, 0);
-        }
+            var normalizedColourCombo = GetNormalizedList(colourCombo);
 
-        static void GetAllColourCombos(int[] combo, int position)
-        {
-            if (position == combo.Length)
+            foreach (var colouredGraph in colouredGraphs)
             {
-                allCombos.Add(combo);
-            }
-            else
-            {
-                for (var i = 0; i < colourCount; i++)
+                if (CompareLists(GetNormalizedList(colouredGraph), normalizedColourCombo))
+                // if (GetNormalizedList(colouredGraph).Intersect(normalizedColourCombo).Any())
                 {
-                    var newCombo = new int[combo.Length];
-                    Array.Copy(combo, newCombo, combo.Count());
-                    newCombo[position] = i;
-                    GetAllColourCombos(newCombo, position + 1);
+                    return false;
                 }
             }
+
+            return true;
         }
 
-        static int IntPow(int x, int pow)
+        static bool CompareLists(List<int> firstList, List<int> secondList)
         {
-            int ret = 1;
-            while (pow != 0)
+            if (firstList.Count() != secondList.Count())
             {
-                if ((pow & 1) == 1)
-                    ret *= x;
-                x *= x;
-                pow >>= 1;
+                return false;
             }
 
-            return ret;
+            for (int i = 0; i < firstList.Count(); i++)
+            {
+                if (firstList[i] != secondList[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
-    */
+
+        static List<int> GetNormalizedList(List<int> inputList)
+        {
+            Dictionary<int, int> normalizedValues = new Dictionary<int, int>();
+            var actualValue = new List<int>();
+            int iterator = 0;
+
+            foreach (var i in inputList)
+            {
+                if (!normalizedValues.ContainsKey(i))
+                {
+                    normalizedValues.Add(i, iterator);
+                    iterator++;
+                }
+                
+                actualValue.Add(normalizedValues[i]);
+            }
+
+            return actualValue;
+        }
     }
 }

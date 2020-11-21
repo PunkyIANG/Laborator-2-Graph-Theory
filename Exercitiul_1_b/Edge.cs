@@ -6,7 +6,6 @@ namespace Exercitiul_1_b
     {
         public int Id;
         public List<Vertex> ConnectedVertices = new List<Vertex>();
-        public int Colour = -1;
 
         public Edge(int id)
         {

@@ -139,15 +139,7 @@ namespace Exercitiul_1_b
             {
                 Console.Write(edge.Id + " ");
             }
-
-            Console.WriteLine();
             
-            Console.Write("Colour: ");
-            foreach (var edge in Edges)
-            {
-                Console.Write(edge.Colour + " ");
-            }
-
             Console.WriteLine();
             
             Console.WriteLine();
