@@ -49,7 +49,7 @@ namespace Exercitiul_1_c
 
             if (u.Distance + edge.Weight < v.Distance)
             {
-                Console.WriteLine($"{u.Distance} + {edge.Weight} < {v.Distance}");    //debug
+                // Console.WriteLine($"{u.Distance} + {edge.Weight} < {v.Distance}");    //debug
                 v.Distance = u.Distance + edge.Weight;
             }
         }
