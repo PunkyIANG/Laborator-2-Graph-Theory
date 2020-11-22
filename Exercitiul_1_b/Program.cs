@@ -27,6 +27,8 @@ namespace Exercitiul_1_b
                 colourCount++;
                 StartColourCombos(graph);
             }
+
+            Console.WriteLine("Indicele cromatic: " + colourCount);
             
             PrintListListInt(colouredGraphs);
         }
