@@ -33,7 +33,7 @@ namespace Exercitiul_1_a
                 }
             }
 
-            for (var i = 0; i < height; i++)
+            for (var i = 0; i < height - 1; i++)
             {
                 Vertices.Add(new Vertex(i)); //rewrite this as well
             }
@@ -59,6 +59,11 @@ namespace Exercitiul_1_a
             {
                 edge.ConnectedVertices[0].AdjacentVertices.Add(edge.ConnectedVertices[1]);
                 edge.ConnectedVertices[1].AdjacentVertices.Add(edge.ConnectedVertices[0]);
+            }
+
+            for (int i = 0; i < width; i++)
+            {
+                Edges[i].Weight = matrix[height - 1][i];
             }
 
             PrintGraphStats();
@@ -136,13 +141,13 @@ namespace Exercitiul_1_a
 
             Console.WriteLine();
 
-            // Console.Write("Edge Weight: ");
-            // foreach (var edge in Edges)
-            // {
-            //     Console.Write(edge.Weight + " ");
-            // }
-            //
-            // Console.WriteLine();
+            Console.Write("Edge Weight: ");
+            foreach (var edge in Edges)
+            {
+                Console.Write(edge.Weight + " ");
+            }
+            
+            Console.WriteLine();
             Console.WriteLine();
         }
 

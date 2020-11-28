@@ -24,6 +24,7 @@ namespace Exercitiul_1_a
             while (eligibleEdges.Any())
             {
                 var minEdge = eligibleEdges.OrderBy(e => e.Weight).First();
+                
                 tree.Edges.Add(minEdge);
                 tree.Vertices.AddRange(minEdge.ConnectedVertices.Except(tree.Vertices));
                 
