@@ -9,6 +9,7 @@ namespace Exercitiul_1_c
         public List<Vertex> AdjacentVertices = new List<Vertex>();
         public List<Edge> AdjacentEdges = new List<Edge>();
         public int Distance = 0;
+        public List<Vertex> path;
 
         public int GetVertexDegree()
         {

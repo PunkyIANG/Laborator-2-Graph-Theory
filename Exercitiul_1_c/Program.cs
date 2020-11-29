@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Exercitiul_1_c
@@ -11,6 +12,7 @@ namespace Exercitiul_1_c
             graph.SetIncidenceMatrixWeights(graph.ParseMatrixFile(@"..\..\..\..\Exercitiul_1_c\incidenceWeighted.txt"));
             BellmanFord(graph, graph.Vertices.FirstOrDefault());
             graph.PrintGraphStats();
+            graph.PrintPath();
         }
 
         static void BellmanFord(DirectedWeightedGraph graph, Vertex source)
@@ -25,6 +27,7 @@ namespace Exercitiul_1_c
             foreach (var vertex in graph.Vertices)
             {
                 vertex.Distance = Int32.MaxValue - totalDistance;
+                vertex.path = new List<Vertex>{vertex};
             }
             source.Distance = 0;
 
@@ -51,6 +54,9 @@ namespace Exercitiul_1_c
             {
                 // Console.WriteLine($"{u.Distance} + {edge.Weight} < {v.Distance}");    //debug
                 v.Distance = u.Distance + edge.Weight;
+                // v.path = new List<Vertex>(u.path);
+                // v.path.Add(v);
+                v.path = new List<Vertex>(u.path) {v};
             }
         }
 

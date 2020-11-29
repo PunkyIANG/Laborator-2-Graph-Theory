@@ -150,6 +150,24 @@ namespace Exercitiul_1_c
             Console.WriteLine();
         }
 
+        public void PrintPath()
+        {
+            Console.WriteLine("Vertex paths:");
+            foreach (var vertex in Vertices)
+            {
+                Console.Write(vertex.Id + ": ");
+                foreach (var pathVertex in vertex.path)
+                {
+                    Console.Write(pathVertex.Id);
+                    if (vertex.Id != pathVertex.Id)
+                    {
+                        Console.Write(" -> ");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+
 
         public List<List<int>> ParseMatrixFile(string path)
         {
