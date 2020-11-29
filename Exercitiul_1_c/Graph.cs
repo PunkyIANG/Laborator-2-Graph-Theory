@@ -156,14 +156,16 @@ namespace Exercitiul_1_c
             foreach (var vertex in Vertices)
             {
                 Console.Write(vertex.Id + ": ");
-                foreach (var pathVertex in vertex.path)
+
+                for (int i = 0; i < vertex.path.Count; i++)
                 {
-                    Console.Write(pathVertex.Id);
-                    if (vertex.Id != pathVertex.Id)
+                    Console.Write(vertex.path[i].Id);
+                    if (i != vertex.path.Count - 1)
                     {
                         Console.Write(" -> ");
                     }
                 }
+                
                 Console.WriteLine();
             }
         }
